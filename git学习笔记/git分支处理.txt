@@ -1,0 +1,218 @@
+---------------------------------------------------------------
+分支的创建
+
+
+1.我们先切换到第一个账号
+（1）设置邮箱
+（2）设置用户名
+（3）修改本地gihub客户端github账户 git设置的邮箱和账号是否给你的一样
+
+E:\mygit\web_html [master ≡]>  git config --global user.name "alinfeng"
+　　　　E:\mygit\web_html [master ≡]>  git config --global user.email "14293652452@qq.com"
+
+2.直接从github上拉取文件 git pull
+
+　　　　
+　　　　E:\mygit\web_html [master ≡]>  git pull
+　　　　remote: Counting objects: 8, done.
+　　　　remote: Compressing objects: 100% (8/8), done.
+　　　　remote: Total 8 (delta 4), reused 4 (delta 0), pack-reused 0
+　　　　Unpacking objects: 100% (8/8), done.
+　　　　From https://github.com/alingfeng/web_html
+　　　　2545d72..3980400  master     -> origin/master
+　　　　Updating 2545d72..3980400
+　　　　Fast-forward
+　　　　demo1.html | 5 +++--
+　　　　1 file changed, 3 insertions(+), 2 deletions(-)
+　　　　E:\mygit\web_html [master ≡]>  拉取成功
+
+3.如果多个人在同一个分支上进行开发，难以避免会产生冲突，开发起来难度会加大，当有了不同的需求，可以开分支来处理，防止开发冲突
+
+	开发完之后在分支合并  保证只有一个分支，不会出现太大的问题
+
+4.查看分支 git branch
+
+　　　　E:\mygit\web_html [master ≡]>  git branch
+　　　　* master
+　　　　E:\mygit\web_html [master ≡]>
+
+	*表示当前我选择的分支是主分支master  也可以通过 [master ≡]看出我当前在哪个分支上
+
+5.创建分支
+
+说明：我是在当前这个主分支上开另外一个分支的
+
+ git branch 创建分支名  此时还没有切换分支
+
+　　　　E:\mygit\web_html [master ≡]>  git branch new1  创建分支
+　　　　
+
+6.查看是否创建成功         git branch  查看分支  *在那个分支上，就表示当前我们选择了那个分支
+
+	E:\mygit\web_html [master ≡]>  git branch
+　　　　* master
+　　　　new1
+　　　　E:\mygit\web_html [master ≡]>
+
+
+7.切换分支  git checkout 要切换的分支名
+
+　　　　E:\mygit\web_html [master ≡]>  git checkout new1
+　　　　Switched to branch 'new1'
+　　　　E:\mygit\web_html [new1]>
+
+8.再次切换回主分支 
+
+　　　　E:\mygit\web_html [new1]> git checkout master
+　　　　Switched to branch 'master'
+　　　　Your branch is up-to-date with 'origin/master'.
+　　　　E:\mygit\web_html [master ≡]>
+
+9.快速创建分支并且切换到这新建立的分支上  git checkout -b 要创建的分支名  意思是先创建分支后切换到这分支上
+
+　　　　E:\mygit\web_html [master ≡]>  git checkout -b new2  创建并切换到新分支
+　　　　Switched to a new branch 'new2'
+　　　　E:\mygit\web_html [new2]>
+
+
+
+10.切换到new1分支上进行操作
+
+　　　　E:\mygit\web_html [new2]> git checkout new1 切换到new1分支上
+　　　　Switched to branch 'new1'
+　　　　E:\mygit\web_html [new1]> git branch  查看是否切换到new1分支上
+　　　　master
+　　　　* new1
+　　　　new2
+　　　　E:\mygit\web_html [new1]>
+
+（1）修改drag.js        obj.onmousedown = function(ev){
+				var ev = ev || event;
+				disX = ev.clientX - this.offsetLeft;
+				disY = ev.clientY - this.offsetTop;
+	
+			}
+
+（2）提交到版本库当中  这是在new1分支上开发
+  
+　　　　E:\mygit\web_html [new1]> git status  查看状态
+　　　　On branch new1
+　　　　Changes not staged for commit:
+　　　　(use "git add <file>..." to update what will be committed)
+　　　　(use "git checkout -- <file>..." to discard changes in working directory)
+
+　　　　modified:   drag.js
+
+　　　　no changes added to commit (use "git add" and/or "git commit -a")
+　　　　E:\mygit\web_html [new1 +0 ~1 -0 !]> git commit -a -m "change drag.js from new1"  提交到版本库
+　　　　[new1 0a75039] change5 drag.js
+　　　　1 file changed, 4 insertions(+), 1 deletion(-)
+　　　　E:\mygit\web_html [new1]>
+
+11.在切换到主分支上  此时会少了我之前更改的代码，因为主分支上没有这你更改的内容  obj.onmousedown = function(){}
+
+12.合并分支  git merge 要合并的分支名  此时的主分支指向的就是刚刚合并的new1  就相当于被new1算在主分支上了  
+
+　　　　E:\mygit\web_html [master ≡]>  git merge new1
+　　　　Updating 3980400..0a75039
+　　　　Fast-forward  快速的合并方式
+　　　　drag.js | 5 ++++-
+　　　　1 file changed, 4 insertions(+), 1 deletion(-)
+　　　　E:\mygit\web_html [master ↑]>
+
+
+13.在看我工作区的文件，已经更新了  此时主分支上的new2还是指向的是它刚开始创建的按个主分支版本  具体看图片
+-------------------------------------------------------------------------------------------------------------
+分支的删除操作
+
+14.切换到new2版本上开发
+
+（1）先要查看当前的分支 ，防止开发出错（你还不知道呢，哈哈）
+
+　　　　E:\mygit\web_html [master ↑]>  git branch
+　　　　* master
+　　　　new1
+　　　　new2
+　　　　E:\mygit\web_html [master ↑]>
+
+（2）切换到new2分支上
+
+　　　　E:\mygit\web_html [master ↑]>  git checkout new2
+　　　　Switched to branch 'new2'
+　　　　E:\mygit\web_html [new2]>
+
+（3）修改drag.js  在obj.onmousedown绑定的函数中加入 
+
+		document.onmousemove = function(){
+		
+		}
+		document.onmouseup = function(){
+		
+		}
+
+（4）提交到版本库当中
+
+　　　　E:\mygit\web_html [new2]> git commit -a -m "change drag.js from new2"
+　　　　On branch new2
+　　　　nothing to commit, working directory clean
+　　　　E:\mygit\web_html [new2]>
+
+
+（5）切换到主分支上
+
+	obj.onmousedown = function(ev){
+		var ev = ev || event;
+		disX = ev.clientX - this.offsetLeft;
+		disY = ev.clientY - this.offsetTop;
+	
+	}
+
+（6）查看分支合并信息（就是那个分支与主分支合并的）
+
+　　　　E:\mygit\web_html [master ↑]>  git branch --merged
+　　　　* master
+　　　　new1
+　　　　E:\mygit\web_html [master ↑]> 
+
+（7）查看那个分支和主分支没有合并
+
+　	E:\mygit\web_html [master ↑]>  git branch --no-merged
+	new2
+　　　　E:\mygit\web_html [master ↑]>
+
+(8)合并完整个new1分支就没什么用了，可以git bramch -d 删除的分支名
+
+　　　　E:\mygit\web_html [master ↑]>  git branch -d new1
+　　　　Deleted branch new1 (was 0a75039).
+　　　　E:\mygit\web_html [master ↑]>
+
+（9）再次查看分支new1是否删除掉
+　　　　E:\mygit\web_html [master ↑]>  git branch
+　　　　* master
+　　　　new2
+　　　　E:\mygit\web_html [master ↑]>
+
+（10）尝试删除new2分支（此分支是没有合并到主分支的）
+
+　　　　E:\mygit\web_html [master ↑]>  git branch -d mew2
+　　　　error: branch 'mew2' not found.
+　　　　E:\mygit\web_html [master ↑]>
+
+	由此可见git默认是不能删除没有合并的分支的，因为它和主分支master是有区别的，不允许这么操作
+
+（11）强制把没有合并的分支删除掉 git branch -D 要删除的分支名
+
+　　　　E:\mygit\web_html [master ↑]>  git branch -D new2
+　　　　Deleted branch new2 (was 3980400).
+　　　　E:\mygit\web_html [master ↑]>
+
+
+
+
+
+
+
+
+
+
+

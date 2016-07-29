@@ -1,0 +1,132 @@
+深入学习---------最好在公司中参与项目，多人协作开发
+
+----------------------------------------------------------------------------------------------------------------
+
+资源
+	http://git.oschina.net/progit/  中文版（推荐）
+
+	http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000  廖雪峰 （推荐）
+----------------------------------------------------------------------------------------------------------------
+
+1.技巧
+
+（1）命令行  cd 进入 cd e:  进入e盘  cd mygit/web_html 进入到某一个文件夹
+
+（2）cd .. 返回上一层
+------------------------------------------------------
+（3）ls 查看整个目录结构
+
+E:\mygit\web_html [master ↑]>  ls
+
+
+    目录: E:\mygit\web_html
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-a----        2016/7/29     11:26            555 demo1.html
+-a----        2016/7/29     11:27            544 drag.js
+-a----        2016/7/17     23:38             26 README.md
+-a----        2016/7/27     17:53              0 test.txt
+
+
+E:\mygit\web_html [master ↑]>
+------------------------------------------------------
+
+（4）mkdir 创建文件夹  
+
+E:\mygit\web_html [master ↑]>  mkdir test
+
+
+    目录: E:\mygit\web_html
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-----        2016/7/29     12:50                test
+
+
+E:\mygit\web_html [master ↑]>
+
+-----------------------------------------------------
+（5）在这个test文件夹中创建文件
+
+	先进入这个文件夹中
+
+　　　　E:\mygit\web_html [master ↑]>  cd test
+　　　　E:\mygit\web_html\test [master ↑]> 
+
+	输入 编辑器名称 文件名称  这里是直接调用的是记事本  写上内容可以保存  此时就出创建了一个test.txt 文件 
+
+	E:\mygit\web_html\test [master ↑]>  notepad test.txt
+　　　　E:\mygit\web_html\test [master ↑]>
+-----------------------------------------------------
+（6）在开发的过程中，如果有的命令比较长，你可以设置别名的方式操作，提高效率
+
+	git config --global alias.co checkout  设置checkout的别名为co
+
+	E:\mygit\web_html\test [master ↑]>  git config --global alias.co checkout
+
+----------------------------------------------------------------------------------------
+（7）查看git默认设置列表 git config --list
+
+　　　　E:\mygit\web_html\test [master ↑ +1 ~0 -0 !]>  git config --list
+　　　　alias.c=commit
+　　　　alias.co=checkout
+　　　　alias.dt=difftool
+　　　　alias.mt=mergetool
+　　　　alias.praise=blame
+　　　　alias.ff=merge --ff-only
+　　　　alias.st=status
+　　　　alias.sync=!git pull && git push
+　　　　apply.whitespace=nowarn
+　　　　core.symlinks=false
+　　　　core.autocrlf=true
+　　　　core.editor=gitpad
+　　　　core.preloadindex=true
+　　　　core.fscache=true
+　　　　color.diff=auto
+　　　　color.status=auto
+　　　　color.branch=auto
+　　　　color.interactive=true
+　　　　color.ui=true
+　　　　pack.packsizelimit=2g
+　　　　help.format=html
+　　　　http.sslcainfo=/ssl/certs/ca-bundle-ghfw.crt
+　　　　diff.astextplain.textconv=astextplain
+　　　　rebase.autosquash=true
+　　　　credential.helper=!github --credentials
+　　　　filter.ghcleansmudge.clean=cat
+　　　　filter.ghcleansmudge.smudge=cat
+　　　　push.default=upstream
+　　　　diff.tool=vs2013
+　　　　diff.algorithm=histogram
+　　　　difftool.prompt=false
+　　　　difftool.bc4.cmd="c:/program files (x86)/beyond compare 3/bcomp.exe" "$LOCAL" "$REMOTE"
+　　　　difftool.p4.cmd="c:/program files/Perforce/p4merge.exe" "$LOCAL" "$REMOTE"
+　　　　difftool.vs2012.cmd="c:/program files (x86)/microsoft visual studio 11.0/common7/ide/devenv.exe" '//diff' "$LOCAL" "$REMOTE"
+　　　　difftool.vs2013.cmd="c:/program files (x86)/microsoft visual studio 12.0/common7/ide/devenv.exe" '//diff' "$LOCAL" "$REMOTE"
+　　　　merge.tool=bc3
+　　　　mergetool.prompt=false
+　　　　mergetool.keepbackup=false
+　　　　mergetool.bc3.cmd="c:/program files (x86)/beyond compare 3/bcomp.exe" "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
+　　　　mergetool.bc3.trustexitcode=true
+　　　　mergetool.p4.cmd="c:/program files/Perforce/p4merge.exe" "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+　　　　mergetool.p4.trustexitcode=false
+　　　　user.name=alinfeng
+　　　　user.email=14293652452@qq.com
+　　　　filter.lfs.clean=git-lfs clean -- %f
+　　　　filter.lfs.smudge=git-lfs smudge -- %f
+　　　　filter.lfs.required=true
+　　　　core.repositoryformatversion=0
+　　　　core.filemode=false
+　　　　core.bare=false
+　　　　core.logallrefupdates=true
+　　　　core.symlinks=false
+　　　　core.ignorecase=true
+　　　　core.hidedotfiles=dotGitOnly
+　　　　remote.origin.url=https://github.com/alingfeng/web_html.git
+　　　　remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*
+　　　　branch.master.remote=origin
+　　　　branch.master.merge=refs/heads/master
+　　　　E:\mygit\web_html\test [master ↑ +1 ~0 -0 !]

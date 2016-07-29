@@ -1,0 +1,112 @@
+撤销
+
+1.将之前更改的文件提交到暂存区　
+
+　　　　E:\mygit\web_html [master ↑]>  git status
+　　　　On branch master
+　　　　Your branch is ahead of 'origin/master' by 4 commits.
+　　　　(use "git push" to publish your local commits)
+　　　　Changes not staged for commit:
+　　　　(use "git add <file>..." to update what will be committed)
+　　　　(use "git checkout -- <file>..." to discard changes in working directory)
+　　　　modified:   drag.js//更改的文件
+　　　　no changes added to commit (use "git add" and/or "git commit -a")
+
+　
+　E:\mygit\web_html [master ↑ +0 ~1 -0 !]>  git add .提交到暂存区
+　E:\mygit\web_html [master ↑ +0 ~1 -0 ~]>
+
+
+2.git reset HEAD 文件名      将暂存区的文件撤销到工作区
+
+　　　　E:\mygit\web_html [master ↑ +0 ~1 -0 ~]>  git reset HEAD drag.js
+　　　　Unstaged changes after reset:
+　　　　M       drag.js
+　　　　E:\mygit\web_html [master ↑ +0 ~1 -0 !]>
+
+3.git checkout -- <file.name>   将工作区的文件销毁，如果上一个状态文件在暂存区，那么就回到你存储在暂存区的文件，否则回到版本库的状态
+
+　　　　E:\mygit\web_html [master ↑ +0 ~1 -0 !]>  git checkout -- drag.js
+　　　　E:\mygit\web_html [master ↑]>
+
+4.错误提交处理： 我想本来是提交（修改的）文件，但是提交了一个到版本库中，还落下一个，那么此时
+
+　　　　E:\mygit\web_html [master ↑ +0 ~1 -0 !]>  git status
+　　　　On branch master
+　　　　Your branch is ahead of 'origin/master' by 4 commits.
+　　　　(use "git push" to publish your local commits)
+　　　　Changes not staged for commit:
+　　　　(use "git add <file>..." to update what will be committed)
+　　　　(use "git checkout -- <file>..." to discard changes in working directory)
+
+　　　　	modified:   demo1.html
+　　　　	modified:   drag.js
+
+　　　　no changes added to commit (use "git add" and/or "git commit -a")
+　　　　E:\mygit\web_html [master ↑ +0 ~2 -0 !]>  git add  drag.js
+　　　　E:\mygit\web_html [master ↑ +0 ~1 -0 | +0 ~1 -0 !]>  git commit -m "change3 drag.js"
+　　　　[master 3ee0d5c] change3 drag.js 提交成功一个
+　　　　1 file changed, 2 insertions(+)
+　　　　E:\mygit\web_html [master ↑ +0 ~1 -0 !]>
+
+5.另外一个文件也需要提交，此时应该先把落下的文件提交到暂存区，通过--amend命令，将版本库当中的文件撤销到暂存区然后在重新提交这个连个文件
+
+
+　　　　E:\mygit\web_html [master ↑ +0 ~1 -0 !]>  git add demo1.html  将为提交的文件提交到暂存区
+　　　　E:\mygit\web_html [master ↑ +0 ~1 -0 ~]>
+
+
+
+　　　　E:\mygit\web_html [master ↑ +0 ~1 -0 ~]>  git commit -a -m "change3 drag.js demo1.html" --amend  重新提交(先将之前提交的文件撤回到暂存区，然后在提交)到版本库当中
+　　　　[master cd9a6f1] change3 drag.js demo1.html
+　　　　Date: Wed Jul 27 16:39:36 2016 +0800
+　　　　2 files changed, 5 insertions(+)
+　　　　E:\mygit\web_html [master ↑]>
+
+
+6.get log 查看提交历史
+
+E:\mygit\web_html [master ↑]>  git log
+commit cd9a6f10efff31b1b73b13ae54819470b6e167b6
+Author: aling_feng <1429365245@qq.com>
+Date:   Wed Jul 27 16:39:36 2016 +0800
+
+    change3 drag.js demo1.html
+
+commit 28b3d2e0ceb78ecd6578306b76f21316d27a2240
+Author: aling_feng <1429365245@qq.com>
+Date:   Wed Jul 27 16:08:47 2016 +0800
+
+    change2 drag.js
+
+commit 41b3a2815b9b7168c81b8d20e67240302045853c
+Author: aling_feng <1429365245@qq.com>
+Date:   Sun Jul 24 22:53:40 2016 +0800
+
+    change1 drag.js
+
+commit cb9ae98cb7e9f7dbf2b84a6e404ba7841b97e16c
+Author: aling_feng <1429365245@qq.com>
+Date:   Sat Jul 23 23:48:01 2016 +0800
+
+    add erag.js
+
+commit 05badbdaddcb82616f844fc95d9b29b8ba80ae48
+Author: aling_feng <1429365245@qq.com>
+Date:   Sat Jul 23 23:28:29 2016 +0800
+
+    creat two
+
+commit 9b1ef40f8630e66c28e96c9d9c74183e8aea2abf
+Author: alingfeng <1429365245@qq.com>
+Date:   Tue May 24 13:28:11 2016 +0800
+
+    Initial commit
+E:\mygit\web_html [master ↑]>
+
+　　　　默认不用任何参数的话，git log 会按提交时间列出所有的更新，最近的更新排在最上面。看到了吗，每次更新都有一个 SHA-1 校验和、作者的名字 和 电子邮件地址、提交时间，
+
+	最后缩进一个段落显示提交说明。
+
+	如果提交的次数过多，客户按回车继续进行查看
+

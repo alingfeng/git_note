@@ -1,0 +1,13 @@
+git merge 用来做分支合并，将其他分支中的内容合并到当前分支中
+
+　　　　E:\mygit\web_html [master ?]> git merge origin/master
+　　　　Auto-merging demo1.html
+　　　　CONFLICT (content): Merge conflict in demo1.html  文件demo1.html 有冲突
+　　　　Automatic merge failed; fix conflicts and then commit the result.
+　　　　E:\mygit\web_html [master ? +0 ~0 -0 !1 | +0 ~0 -0 !1 !]>
+
+具体详见git 多人协作开发中的2----（5）
+
+资料了解
+
+ Git merge 合并分区详解 http://blog.csdn.net/self001/article/details/7325129

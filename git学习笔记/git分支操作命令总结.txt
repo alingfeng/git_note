@@ -1,0 +1,15 @@
+Git分支
+　　　　
+　　　　git branch 创建的分支名    创建分支
+　　　　
+　　　　git branch -d 删除的分支名  删除分支
+　　　　
+　　　　git branch --merged 查看哪些分支和主分支合并了
+　　　　
+　　　　git branch--no-merged  查看哪些分支和主分支没有合并
+　　　　
+　　　　git checkout  切换的分之名称  切换分支
+　　　　
+　　　　git checkout -b 创建的分之名称  创建分支并切换到当前你创建的分支上
+　　　　
+　　　　git merge 要合并的分支名  合并分支

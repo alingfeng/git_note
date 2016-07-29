@@ -1,0 +1,110 @@
+Git命令
+　　
+　一、　git status  查看工作区和暂存区的状态 以便进行后续的操作
+
+	1.查看工作区和暂存区状态-------当前还没有文件的时候的状态
+
+	　　E:\mygit\web_html [master ≡]>  git status
+　　
+　　	    On branch master
+　　
+　　	   Your branch is up-to-date with 'origin/master'.
+　　
+　　	   nothing to commit, working directory clean
+　　
+　　	   E:\mygit\web_html [master ≡]>
+　　
+　　	   git add
+　　
+
+	2.新建两个文件demo1 和drag.js 再次打印git status
+		
+　　E:\mygit\web_html [master ≡]>  git status
+　　
+　　On branch master
+　　
+　　Your branch is up-to-date with 'origin/master'.
+　　
+　　Untracked files:
+　　
+　　(use "git add <file>..." to include in what will be committed)
+　　
+　　demo1.html  新增文件
+　　
+　　drag.js   新增文件
+　　
+　　nothing added to commit but untracked files present (use "git add" to track)
+　　
+　　E:\mygit\web_html [master ≡ +2 ~0 -0 !]>  工作区有两个新文件
+
+
+二、	提交  git add name  name是要提交的文件名称  如果不想当个提交可以用git add . 的方式提交
+　　
+　　.　　E:\mygit\web_html [master ≡ +2 ~0 -0 !]>  git add demo1.html
+　　
+　　	 E:\mygit\web_html [master ≡ +1 ~0 -0 | +1 ~0 -0 !]>
+
+	 E:\mygit\web_html [master ≡ +1 ~0 -0 | +1 ~0 -0 !]>  git add drag.js   工作区和暂存区有颜色区分
+　　
+　　	 E:\mygit\web_html [master ≡ +2 ~0 -0 ~]>  这样两个文件都被提交到了暂存区  这里面的第一个0 表示0个修改  第二个是0个删除
+　　
+　　git commit
+　　	
+	先看下状态
+
+	　　E:\mygit\web_html [master ≡ +2 ~0 -0 ~]>  git status
+　　
+　　        On branch master
+　　
+　　        Your branch is up-to-date with 'origin/master'.
+　　
+　　        Changes to be committed: 说明此时文件已经在暂存区内 准备向版本库中提交
+　　
+　　        (use "git reset HEAD <file>..." to unstage)
+　　
+　　        new file:   demo1.html
+　　 
+　       　 new file:   drag.js
+　　
+　　       E:\mygit\web_html [master ≡ +2 ~0 -0 ~]>
+
+	我们直接使用git commit 命令  此时会弹出一个记事本 里面记载着要提交的一些信息  我们每次提交的时候需要些注释 这样别人就会知道什么时候提交的，做了哪些修改 提交了什么文件，注释尽量写英文，防止出现乱码
+
+	　　# Please enter the commit message for your changes. Lines starting
+　　	    # with '#' will be ignored, and an empty message aborts the commit.
+　　        # On branch master
+　　        # Your branch is up-to-date with 'origin/master'.
+　　        #
+　　        # Changes to be committed:
+　　        #	new file:   demo1.html
+　　        #	new file:   drag.js
+　　        #
+
+
+	写上注释 create two 
+
+	　　E:\mygit\web_html [master ≡ +2 ~0 -0 ~]>  git commit
+　　
+　　	    [master 05badbd] creat two
+　　
+　　        2 files changed, 16 insertions(+)
+　　
+　　        create mode 100644 demo1.html
+　　
+　　        create mode 100644 drag.js
+　　
+　　        E:\mygit\web_html [master ↑]> 暂存区提交到了版本区
+
+	还可以使用git commit _m "这是注释的内容" 这种方式提交 不需要弹出记事本
+
+	还可以使用简写方法，将工作区暂存区版区连写 git commit -a -m "注释"
+
+
+	　　E:\mygit\web_html [master ↑ +0 ~1 -0 | +0 ~1 -0 !]>  git commit -a -m "add erag.js"
+　　
+　　       [master cb9ae98] add erag.js
+　　
+　       　1 file changed, 2 insertions(+), 1 deletion(-)
+　　
+　　       E:\mygit\web_html [master ↑]>
+	

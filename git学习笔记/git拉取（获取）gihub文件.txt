@@ -1,0 +1,190 @@
+节选自git多人协作开发部分  如不明可以先看git多人协作开发笔记
+
+阅读资料 Git fetch和git pull的区别  http://blog.csdn.net/hudashi/article/details/7664457
+
+
+
+（4）从远程仓库分支获取（拉取）最新版本到本地方法有两个 
+
+	Git fetch和git pull的区别 http://blog.csdn.net/hudashi/article/details/7664457
+
+
+a.git fetch  获取最新版本文件到本地，但是不会跟本地的文件（工作区）进行合并，需要手动合并，这也大大减少了跟本地文件的冲突
+
+　　　  git fetch
+　　　　Git diff master origin/master
+　　　　Git merge  orgin/master
+　　　　git pull
+
+b.git pull  从远程仓库拉取最新版本文件到本地 它会同本地文件进行合并 有冲突  
+
+git pull 省略了Git diff master origin/master 分支对比 和Git merge  orgin/master 分支合并两个环节  直接合并
+
+
+c.分支和远程分支比较
+
+	git diff 本地分支名称  远程分之名称
+
+	git diff sss origin/xxx
+
+	git diff master oigin/master
+
+
+
+
+E:\mygit\web_html [master ?]> git diff master origin/master
+diff --git a/demo1.html b/demo1.html
+index ce1b9c6..4660fc4 100644
+--- a/demo1.html
++++ b/demo1.html
+@@ -9,8 +9,8 @@
+                <meta name="description" content="">
+                <style>
+                        #div{
+-                               width: 200px;
+-                               height: 200px;
++                               width: 100px;
++                               height: 100px;
+                                background-color: red;
+                        };
+                </style>
+E:\mygit\web_html [master ?]>
+
+
+
+
+(5)分支合并 git merge 分之名称  
+
+	git merge 用来做分支合并，将其他分支中的内容合并到当前分支中
+
+　　　　E:\mygit\web_html [master ?]> git merge origin/master
+　　　　Auto-merging demo1.html
+　　　　CONFLICT (content): Merge conflict in demo1.html  文件demo1.html 有冲突
+　　　　Automatic merge failed; fix conflicts and then commit the result.
+　　　　E:\mygit\web_html [master ? +0 ~0 -0 !1 | +0 ~0 -0 !1 !]>
+
+（6）从上面可以看出deml1.html 冲突问题
+
+deml1.html中显示
+
+			#div{  自己写的
+<<<<<<< HEAD
+				width: 200px;
+				height: 200px;
+=======
+				width: 100px; github上最新版本当中的
+				height: 100px;
+>>>>>>> origin/master
+				background-color: red;
+			};
+
+　　　　可以看到 ======= 隔开的上半部分，是 HEAD（即 master 分支，在运行 merge 命令时检出的分支）中的内容，
+
+	下半部分是在 origin/master 分支中的内容。解决冲突的办法无非是二者选其一或者由你亲自整合到一起。
+
+	比如你可以通过把这段内容替换为下面这样来解决：
+		width: 100px;
+		height: 100px;
+
+　　　　这个解决方案各采纳了两个分支中的一部分内容，而且删除了 <<<<<<<，=======，和>>>>>>> 这些行。
+
+	在解决了所有文件里的所有冲突后，运行 git add 将把它们标记为已解决（resolved）。因为一旦暂存，就表示冲突已经解决。或者直接提交到版本库当中
+
+（7）解决完之后在提交到版本库当中 然后在git push到github上
+
+　　　　E:\mygit\web_html [master ? +0 ~0 -0 !1 | +0 ~0 -0 !1 !]> git commit -a -m "add style by alingfeng to demo1.html " 提交到版本库当中
+　　　　[master 2545d72] add style by alingfeng to demo1.html
+
+
+
+　　　　E:\mygit\web_html [master ↑]>  git push  origin master  push到github上
+　　　　Counting objects: 4, done.
+　　　　Delta compression using up to 4 threads.
+　　　　Compressing objects: 100% (4/4), done.
+　　　　Writing objects: 100% (4/4), 504 bytes | 0 bytes/s, done.
+　　　　Total 4 (delta 2), reused 0 (delta 0)
+　　　　To https://github.com/alingfeng/web_html.git
+　　　　cb489de..2545d72  master -> master
+　　　　E:\mygit\web_html [master ≡]>
+
+（8）查看github 是否项目更新了
+
+（9）切换第二个账号  回退dos命令   上下方向键 ------找回上一次所写过的命令。
+
+
+（10）再次设置第二个人的邮箱和账号 github也必须设置  切换到第二个人的mygit2保存项目的文件夹内  进入版本控制  web_html
+
+　　　　E:\mygit\web_html [master ≡]>  git config --global user.name "alingfeng21"
+　　　　E:\mygit\web_html [master ≡]>  git config --global user.email "1244249503@qq.com"
+　　　　E:\mygit\web_html [master ≡]>  cd e:
+　　　　E:\mygit\web_html [master ≡]>  cd ..
+　　　　E:\mygit> cd..
+　　　　E:\> cd mygit2/web_html
+　　　　E:\mygit2\web_html [master ≡]>
+
+
+(11)git status 查看下状态  
+
+　　　　E:\mygit2\web_html [master ≡]>  git status
+　　　　On branch master
+　　　　Your branch is up-to-date with 'origin/master'.
+　　　　nothing to commit, working directory clean
+　　　　E:\mygit2\web_html [master ≡]>
+
+发现工作区是干净的，说明没有文件修改或删除
+
+
+
+（12）第二个人更改下demo1.hmtl #div{
+				width: 300px;
+				height: 300px;
+				background-color: red;
+			};
+
+（13）提交到版本库 
+
+　　　　E:\mygit2\web_html [master ≡ +0 ~1 -0 !]>  git commit -a -m "add style by alingfeng21 to demo1.html"
+　　　　[master 6007f59] add style by alingfeng21 to demo1.html
+　　　　1 file changed, 2 insertions(+), 2 deletions(-)
+　　　　E:\mygit2\web_html [master ↑]>
+
+（14）git push 到gihub上
+
+　　　　E:\mygit2\web_html [master ≡]>  git push origin master
+　　　　To https://github.com/alingfeng/web_html.git
+　　　　! [rejected]        master -> master (fetch first)
+　　　　error: failed to push some refs to 'https://github.com/alingfeng/web_html.git'  报错  提交不上去
+　　　　hint: Updates were rejected because the remote contains work that you do
+　　　　hint: not have locally. This is usually caused by another repository pushing
+　　　　hint: to the same ref. You may want to first integrate the remote changes
+　　　　hint: (e.g., 'git pull ...') before pushing again.
+　　　　hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+　　　　E:\mygit2\web_html [master ≡]>
+
+（15）git pull 从远程仓库上获取最新版本的文件到本地，直接同本地文件合并  结果是以你本地文件为准的，远程的文件不会覆盖掉你本地的文件的  
+
+　　　　在实际使用中，git fetch更安全一些
+　　　　因为在merge前，我们可以查看更新情况，然后再决定是否合并 
+
+（16）在push到远程仓库即可
+
+　　　　E:\mygit2\web_html [master ↑]>  git push origin master
+　　　　Counting objects: 4, done.
+　　　　Delta compression using up to 4 threads.
+　　　　Compressing objects: 100% (4/4), done.
+　　　　Writing objects: 100% (4/4), 531 bytes | 0 bytes/s, done.
+　　　　Total 4 (delta 2), reused 0 (delta 0)
+　　　　To https://github.com/alingfeng/web_html.git
+　　　　2545d72..209f8de  master -> master
+　　　　E:\mygit2\web_html [master ≡]>
+
+（17）查看github上的项目是否发生了改变
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,168 @@
+
+
+1.如果你在工作区删除了drag.js,想从版本库中恢复回来，就用git checkout commit_id <file.name>  针对/指定单个文件
+（1）查看状态
+
+　　　　E:\mygit\web_html [master ↑ +1 ~0 -0 !]>  git status
+　　　　On branch master
+　　　　Your branch is ahead of 'origin/master' by 5 commits.
+　　　　(use "git push" to publish your local commits)
+　　　　Changes not staged for commit:
+　　　　(use "git add/rm <file>..." to update what will be committed)
+　　　　(use "git checkout -- <file>..." to discard changes in working directory)
+　　　　
+	deleted:    drag.js    删除了drag.js文件
+
+(2)查看提交历史记录 
+
+E:\mygit\web_html [master ↑ +1 ~0 -1 !]>  git log
+commit cd9a6f10efff31b1b73b13ae54819470b6e167b6
+Author: aling_feng <1429365245@qq.com>
+Date:   Wed Jul 27 16:39:36 2016 +0800
+
+    change3 drag.js demo1.html
+
+commit 28b3d2e0ceb78ecd6578306b76f21316d27a2240
+Author: aling_feng <1429365245@qq.com>
+Date:   Wed Jul 27 16:08:47 2016 +0800
+
+    change2 drag.js
+
+commit 41b3a2815b9b7168c81b8d20e67240302045853c
+Author: aling_feng <1429365245@qq.com>
+Date:   Sun Jul 24 22:53:40 2016 +0800
+
+    change1 drag.js
+
+commit cb9ae98cb7e9f7dbf2b84a6e404ba7841b97e16c
+Author: aling_feng <1429365245@qq.com>
+Date:   Sat Jul 23 23:48:01 2016 +0800
+
+    add erag.js
+
+commit 05badbdaddcb82616f844fc95d9b29b8ba80ae48
+Author: aling_feng <1429365245@qq.com>
+Date:   Sat Jul 23 23:28:29 2016 +0800
+
+    creat two
+
+commit 9b1ef40f8630e66c28e96c9d9c74183e8aea2abf
+Author: alingfeng <1429365245@qq.com>
+Date:   Tue May 24 13:28:11 2016 +0800
+
+    Initial commit
+E:\mygit\web_html [master ↑ +1 ~0 -1 !]>
+
+其中commit后面的一长串就是id  即 commit_id = cd9a6f10efff31b1b73b13ae54819470b6e167b6  
+
+想要恢复文件只需要复制一小段这个id 配合  git checkout commit_id <file.name> 即可
+
+
+
+（3）使用git checkout commit_id <file.name> 从提交的历史记录当中恢复到最近一个提交文件的时间
+
+　　　　E:\mygit\web_html [master ↑ +1 ~0 -1 !]>  git checkout cd9a6f10e drag.js     【cd9a6f10e 就是最近一个提交文件的历史记录】
+　　　　E:\mygit\web_html [master ↑ +1 ~0 -0 !]>
+
+这样工作区就有了drag文件了
+
+
+2.针对多个文件或者某个版本的恢复  git reset --hard commit_id 
+
+（1）查看状态
+
+　　　　E:\mygit\web_html [master ↑ +1 ~0 -0 !]>  git status
+　　　　On branch master
+　　　　Your branch is ahead of 'origin/master' by 5 commits.
+　　　　(use "git push" to publish your local commits)
+　　　　Changes not staged for commit:
+　　　　(use "git add/rm <file>..." to update what will be committed)
+　　　　(use "git checkout -- <file>..." to discard changes in working directory)
+
+　　　　deleted:    demo1.html  删除的文件
+　　　　deleted:    drag.js  删除的文件
+
+（2）查看git log  同上
+
+（3）复制一小段(最近的提交历史记录的) commit_id   cd9a6f10e
+
+　　　　E:\mygit\web_html [master ↑ +1 ~0 -2 !]>  git reset --hard cd9a6f10e
+　　　　HEAD is now at cd9a6f1 change3 drag.js demo1.html  将版本文件恢复回来了
+　　　　E:\mygit\web_html [master ↑ +1 ~0 -0 !]>
+
+
+3.git reset --hard HEAD^  ^表示回到过去的下一个版本
+
+(1)HEAD相当于一个指针，指的是master这个主分支当前的版本位置，控制这个HEAD指针的方向，向上，达到未来的一个版本，向下，回到过去的一个版本，可以控制版本的变化
+
+　　　　E:\mygit\web_html [master ↑ +1 ~0 -0 !]>  git reset --hard HEAD^
+　　　　HEAD is now at 28b3d2e change2 drag.js
+　　　　E:\mygit\web_html [master ↑ +1 ~0 -0 !]>
+
+
+4.git reset --hard HEAD~num  恢复到num版本
+
+　　　　E:\mygit\web_html [master ↑ +1 ~0 -0 !]>  git reset --hard HEAD~2
+　　　　HEAD is now at cb9ae98 add erag.js
+　　　　E:\mygit\web_html [master ↑ +1 ~0 -0 !]>
+
+
+
+
+
+打印git log
+
+E:\mygit\web_html [master ↑ +1 ~0 -0 !]>  git log
+commit cb9ae98cb7e9f7dbf2b84a6e404ba7841b97e16c
+Author: aling_feng <1429365245@qq.com>
+Date:   Sat Jul 23 23:48:01 2016 +0800
+
+    add erag.js
+
+commit 05badbdaddcb82616f844fc95d9b29b8ba80ae48
+Author: aling_feng <1429365245@qq.com>
+Date:   Sat Jul 23 23:28:29 2016 +0800
+
+    creat two
+
+commit 9b1ef40f8630e66c28e96c9d9c74183e8aea2abf
+Author: alingfeng <1429365245@qq.com>
+Date:   Tue May 24 13:28:11 2016 +0800
+
+    Initial commit
+E:\mygit\web_html [master ↑ +1 ~0 -0 !]>
+
+
+可以看到的确回到了之前的历史版本
+
+--------------------------------------------------------------------------------
+
+5.在回到当前的版本
+
+（1）git reflog  记录当前的操作信息
+
+　　　　E:\mygit\web_html [master ↑ +1 ~0 -0 !]>  git reflog
+　　　　cb9ae98 HEAD@{0}: reset: moving to HEAD~2
+　　　　28b3d2e HEAD@{1}: reset: moving to HEAD^
+　　　　cd9a6f1 HEAD@{2}: commit (amend): change3 drag.js demo1.html
+　　　　3ee0d5c HEAD@{3}: commit: change3 drag.js
+　　　　28b3d2e HEAD@{4}: commit: change2 drag.js
+　　　　41b3a28 HEAD@{5}: commit: change1 drag.js
+　　　　cb9ae98 HEAD@{6}: commit: add erag.js
+　　　　05badbd HEAD@{7}: commit: creat two
+　　　　9b1ef40 HEAD@{8}: clone: from https://github.com/alingfeng/web_html.git
+　　　　E:\mygit\web_html [master ↑ +1 ~0 -0 !]>
+
+（2）根据对应的commit_id 恢复对应的版本
+
+　　　　E:\mygit\web_html [master ↑ +1 ~0 -0 !]>  git reset --hard cd9a6f1  ==>git reflog中的commit_id  =  cd9a6f1
+　　　　HEAD is now at cd9a6f1 change3 drag.js demo1.html
+　　　　E:\mygit\web_html [master ↑ +1 ~0 -0 !]>
+
+恢复
+　　　　git checkout commit_id <file.name>
+　　　　git reset --hard commit_id
+　　　　HEAD^
+　　　　HEAD~<num>
+
+

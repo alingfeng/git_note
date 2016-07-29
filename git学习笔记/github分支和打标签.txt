@@ -1,0 +1,190 @@
+1.如何将我们创建好的分支发送到github上
+
+2.先创建个分支 并切换到该分支上 new1
+
+　　　　E:\mygit\web_html [master ↑]>  git checkout -b new1
+　　　　
+　　　　Switched to a new branch 'new1'
+　　　　
+　　　　E:\mygit\web_html [new1]>
+
+3.在new1分支上  在工作区创建test3.txt文件  写上内容test2 hello
+
+4.提交到版本库
+
+　　　　E:\mygit\web_html [new1 +1 ~0 -0 ~]> git commit -a -m "test2"
+　　　　
+　　　　[new1 9ddc727] test2
+　　　　
+　　　　1 file changed, 1 insertion(+)
+　　　　
+　　　　create mode 100644 test2.txt
+　　　　
+　　　　E:\mygit\web_html [new1]>
+
+5.将new1分支提交到github上  git push origin  new1
+
+
+　　　　E:\mygit\web_html [new1]> git push origin new1  推送到github上
+　　　　Counting objects: 13, done.
+　　　　Delta compression using up to 4 threads.
+　　　　Compressing objects: 100% (12/12), done.
+　　　　Writing objects: 100% (13/13), 1.32 KiB | 0 bytes/s, done.
+　　　　Total 13 (delta 6), reused 0 (delta 0)
+　　　　To https://github.com/alingfeng/web_html.git
+　　　　* [new branch]      new1 -> new1
+　　　　E:\mygit\web_html [new1]>
+
+	 此时就可以在gtihub自己的账户下看到分支了
+------------------------------------------------------------------------------------
+1.在github上查看左边的分支按钮
+
+2.如果想查看分支，点击切换即可，或者搜索即可
+
+3.若想创建分支，那么就在搜索框中输入你想创建的分支即可
+
+4.注意：如果当前分支在主分支上，那么就是从主分支上创建分支，否则是从其他的分支上创建分支，得看当前你在那个分支上，
+
+	当然创建的时候也有提示
+
+5.删除分支--点击上面的分支branches  进入里面点击垃圾桶就可以删除  删除完还可以在恢复回来
+
+
+注意：github分支的删除和git本地的分支删除不一样，所以要想彻底删除分支 两者都需要做
+
+-----------------------------------------------------------------------------------
+
+1.点击 contributors  查看协作开发人员的装态
+
+
+--------------------------------------------------------------------------------
+releases  github上的标签  就是打标签 什么版本的  里程碑.... 打了标签之后github就会把当前所有文件都存储下来可以下载等，继续开发也不受影响
+
+1.使用git打标签
+
+（1）打标签前先切换到主分支master上  同步一下文件从github上获得最新的开发版本  git pull
+
+
+　　　　E:\mygit\web_html [new1]> git checkout master
+　　　　Switched to branch 'master'
+　　　　Your branch is ahead of 'origin/master' by 4 commits.
+　　　　(use "git push" to publish your local commits)
+　　　　E:\mygit\web_html [master ↑]>  git pull
+　　　　Already up-to-date.
+　　　　E:\mygit\web_html [master ↑]>
+
+（2）github分支的删除和git本地的分支删除不一样，所以要想彻底删除分支 还需要在git上删除分支
+
+（3）完善项目  
+----------------------------------------------------------------drag.js
+// JavaScript Document
+function drag(id){
+	var obj = document.getElementById(id);
+	var disX = 0;
+	var disY = 0;
+	obj.onmousedown = function(ev){
+		var ev = ev || event;
+		disX = ev.clientX - obj.offsetLeft;
+		disY = ev.clientY - obj.offsetTop;
+		
+		document.onmousemove = function(ev){
+			var ev = ev || event;
+
+			obj.style.left = ev.clientX - disX +'px';
+			obj.style.top = ev.clientY - disY +'px';
+		}
+		document.onmouseup = function(){
+			document.onmousemove = document.onmouseup = null;
+		}
+
+		return false;
+	}
+}
+
+------------------------------------demo1.html
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<!--声明当前页面编码中文<gbk、gb2312>国际编码<utf-8>-->
+		<meta charset="UTF-8">
+		<!--声明当前网页三要素-->
+		<title>Document</title>
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<style>
+			#div{
+				width: 300px;
+				height: 300px;
+				background-color: red;
+				position: absolute;
+			};
+		</style>
+	</head>
+	<body>
+		<div id="div"></div>
+		<script src="drag.js"></script>
+		<script>
+			drag('div');
+		</script>
+	</body>
+</html>
+
+-----------------------------------------------------------------------------
+
+(5)提交到版本库
+
+　　　　E:\mygit\web_html [master ↑]>  git commit -a -m "complete drag"  提交到版本库
+　　　　[master d224b8f] complete drag
+　　　　2 files changed, 12 insertions(+), 4 deletions(-)
+　　　　E:\mygit\web_html [master ↑]>
+
+（6）查看标签  git tag
+
+　　　　E:\mygit\web_html [master ↑]>  git tag
+　　　　E:\mygit\web_html [master ↑]>
+
+(7)打标签 git tag 标签内容 通常是版本号 
+
+　　　　E:\mygit\web_html [master ↑]>  git tag v1.0
+　　　　E:\mygit\web_html [master ↑]> 
+
+（8）打完标签查看
+
+　　    E:\mygit\web_html [master ↑]>  git tag
+　　　　v1.0
+　　　　E:\mygit\web_html [master ↑]>
+　　　　
+（9）将标签推送到(同步到)github上  ---> git push origin 版本号  在github上查看标签即可
+
+　　　　E:\mygit\web_html [master ↑]>  git push origin v1.0
+　　　　Counting objects: 14, done.
+　　　　Delta compression using up to 4 threads.
+　　　　Compressing objects: 100% (14/14), done.
+　　　　Writing objects: 100% (14/14), 1.58 KiB | 0 bytes/s, done.
+　　　　Total 14 (delta 7), reused 0 (delta 0)
+　　　　To https://github.com/alingfeng/web_html.git
+　　　　* [new tag]         v1.0 -> v1.0
+　　　　E:\mygit\web_html [master ↑]>
+
+（10）打了标签之后github就会把当前所有文件都存储下来可以下载等，继续开发也不受影响
+
+-----------------------------------------------------------------------------------------
+2.在github上创建标签
+
+（1）点击标签releases  进入后在右边即可点击按钮输入创建的标签名 ，下面的注释可写可不写，具体看实际情况，这里只是演示
+
+（2）在最下面点击确认即可，后会跳转页面，会有提示信息是否创建成功
+
+
+
+
+
+-----------------------------------------------------------------------------
+
+　　　　github上的分支
+　　　　git push
+　　　　github上直接创建
+　　　　github上的标签
+　　　　git tag
+　　　　github上直接创建

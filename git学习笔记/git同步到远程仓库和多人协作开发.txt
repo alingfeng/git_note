@@ -1,0 +1,161 @@
+将本地开发的项目推送到github远程仓库上
+
+1.首选查看github客户端界面，点击一个齿轮形状的options选项，看看账号和邮箱是否跟你设置的一样，一样的说明这个github是连接上了
+
+2.推送之前需要查看远程仓库的名字  git remote
+
+
+　　　　E:\mygit\web_html [master ↑ +1 ~0 -0 !]>  git remote
+
+　　　　origin  默认的远程仓库的名字  
+
+　　　　E:\mygit\web_html [master ↑ +1 ~0 -0 !]>
+
+3.远程仓库的名字是可以修改的  通过 git remote add
+
+4.还可以查看远程仓库的地址  通过 git remote -v
+
+
+　　　　E:\mygit\web_html [master ↑ +1 ~0 -0 !]>  git remote -v
+　　　　origin  https://github.com/alingfeng/web_html.git (fetch)
+　　　　origin  https://github.com/alingfeng/web_html.git (push)
+　　　　E:\mygit\web_html [master ↑ +1 ~0 -0 !]>
+
+5.git push 远程仓库名称  要同步的分支  如果客户端的github上的账号和密码没有登录的话，git sheel会提示，登录一下就好了
+
+
+　　　　E:\mygit\web_html [master ↑]>  git push origin master
+　　　　Counting objects: 20, done.
+　　　　Delta compression using up to 4 threads.
+　　　　Compressing objects: 100% (17/17), done.
+　　　　Writing objects: 100% (20/20), 1.95 KiB | 0 bytes/s, done.
+　　　　Total 20 (delta 6), reused 0 (delta 0)
+　　　　To https://github.com/alingfeng/web_html.git
+　　　　9b1ef40..a7ae1a9  master -> master
+　　　　E:\mygit\web_html [master ≡]>  git push origin master
+　　　　Everything up-to-date
+　　　　E:\mygit\web_html [master ≡ +1 ~0 -0 !]>  推送到github成功  看下github官网上自己的项目，是否同步成功了
+
+6.在官网上可以看到commits 就是提交的次数和提交的信息等
+
+
+
+
+7.如何多人协作开发  从github获取代码不用权限，但是你的小伙伴开发完的代码也需要提交到gihub上，你们是同一个项目 以我自己的一个另外账号为例
+
+（1）点击加号，出来一个弹出层  选择 New collaborator 添加协作开发 需要对方也有一个gihub账号，把它账号填进去就可以了
+
+（2）登录第二个号码（就是你刚才填写的对方账号）找到 Notifications   Watching  这个Watching里面就是我关注的项目  如果看到说明设置多人协作开发权限开通了
+
+（3）我用一台电脑模拟两个人协作开发的操作，需要频繁切换这个两个账号 
+
+（4）我在E盘在建立一个文件夹mygit2 这是第二个人的，把所有的项目都放在这个里面，第一个人的是把所有的项目放在mygit这个文夹里面
+
+（5）git的用户名也要切换，先查询下用户名（也可以不查看）
+
+　　　　E:\mygit\web_html [master ≡ +1 ~0 -0 !]>  git config --global user.name
+　　　　aling_feng
+　　　　E:\mygit\web_html [master ≡]>
+
+（6）设置用户名 git config --global user.name "alingfeng21"    查看用户名  git config --global user.name 
+
+　　　　E:\mygit\web_html [master ≡]>  git config --global user.name "alingfeng21"
+　　　　E:\mygit\web_html [master ≡]>  git config --global user.name  查看用户名
+　　　　alingfeng21
+　　　　E:\mygit\web_html [master ≡]>
+
+（7）设置邮箱 git config --global user.email "1244249503@qq.com"  查看邮箱  git config --global user.email
+
+　　　　E:\mygit\web_html [master ≡]>  git config --global user.email "1244249503@qq.com"
+　　　　E:\mygit\web_html [master ≡]>  git config --global user.email
+　　　　1244249503@qq.com
+　　　　E:\mygit\web_html [master ≡]>
+
+（8）github客户端也要修改用户名 邮箱 都要一一对应上  见图片
+
+（9）github如何退出当前文件夹 cd ..  如果想在退出一层文件夹需要在 cd ..
+
+　　　　E:\mygit\web_html [master ≡]>  cd ..
+　　　　E:\mygit> cd ..
+　　　　E:\>
+
+（10）克隆上一个人开发的项目之前需要先进入到你放置项目的文件夹（这里是mygit2），然后将项目从github上面克隆到本地的mygit2上
+
+这里的地址不是你上一个人的项目的地址，是当前开发人员你的gihub上的地址（比人添加多人协作权限时候，你看到的项目的地址）
+
+（11）git clone 项目地址
+
+　　　　E:\mygit2> git clone https://github.com/alingfeng/web_html.git
+　　　　Cloning into 'web_html'...
+　　　　remote: Counting objects: 23, done.
+　　　　remote: Total 23 (delta 0), reused 0 (delta 0), pack-reused 23
+　　　　Unpacking objects: 100% (23/23), done.
+　　　　Checking connectivity... done.
+　　　　E:\mygit2>  克隆成功
+
+（12）查看自己的mygit2 是否有项目文件  然后进入这个web_html项目中  这时候才能纳入git版本控制的范围
+
+（13）进行开发  给demo1.html  添加如下代码
+
+			#div{
+				width: 100px;
+				height: 100px;
+				background-color: red;
+			};
+
+
+（14）查看git status 
+
+E:\mygit2\web_html [master ≡ +0 ~1 -0 !]>  git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   demo1.html 修改的文件
+
+no changes added to commit (use "git add" and/or "git commit -a")
+E:\mygit2\web_html [master ≡ +0 ~1 -0 !]>
+
+
+
+（15）提交到版本库当中 git commit -a -m "提交的信息"
+
+　　　　E:\mygit2\web_html [master ≡ +0 ~1 -0 !]>  git commit -a -m "add style"
+　　　　[master cb489de] add style
+　　　　1 file changed, 5 insertions(+), 1 deletion(-)
+　　　　E:\mygit2\web_html [master ↑]>
+
+（16）将第二个人开发的代码提交到版本库当中去之后，在同步到gihub上面  git remote 查看远程仓库的名称
+
+默认是 origin
+
+
+　　　　E:\mygit2\web_html [master ↑]>  git remote
+　　　　origin
+　　　　E:\mygit2\web_html [master ↑]>
+
+（17）提交到github上面  git push 远程仓库名称  提交的分支名称  如果出现提交时间过长  这是因为你网络环境不好 尝试重新提交几次
+
+
+　　　　E:\mygit2\web_html [master ↑]>  git push origin master
+　　　　Counting objects: 3, done.
+　　　　Delta compression using up to 4 threads.
+　　　　Compressing objects: 100% (3/3), done.
+　　　　Writing objects: 100% (3/3), 335 bytes | 0 bytes/s, done.
+　　　　Total 3 (delta 2), reused 0 (delta 0)
+　　　　To https://github.com/alingfeng/web_html.git
+　　　　a7ae1a9..cb489de  master -> master
+　　　　E:\mygit2\web_html [master ≡]>  github上同步项目提交成功
+
+
+（18）然后第二个人在打开web_html那个项目，可以看到项目同步到github成功
+
+
+
+
+
+
+
+

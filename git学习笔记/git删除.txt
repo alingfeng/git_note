@@ -1,0 +1,57 @@
+1.我在工作区新建立一个文件，test.txt 然后在提交到暂存区
+
+　　　　E:\mygit\web_html [master ↑]>  git status
+　　　　On branch master
+　　　　Your branch is ahead of 'origin/master' by 5 commits.
+　　　　(use "git push" to publish your local commits)
+　　　　Untracked files:
+　　　　(use "git add <file>..." to include in what will be committed)
+
+　　　　	test.txt
+
+　　　　nothing added to commit but untracked files present (use "git add" to track)
+　　　　E:\mygit\web_html [master ↑ +1 ~0 -0 !]>  git add test.txt  提交到暂存区
+
+2.如果工作区中有这个文件，那么使用 git rem <file.name> 是会报错的
+
+　　　　E:\mygit\web_html [master ↑ +1 ~0 -0 ~]>  git rm test.txt
+　　　　error: the following file has changes staged in the index: 错误信息
+
+　　　　test.txt
+
+　　　　(use --cached to keep the file, or -f to force removal)
+
+3.因此当工作区当中的test.txt删除的时候，如果执行删除暂存区的test.txt，才会删除并且不报错
+
+　　　　E:\mygit\web_html [master ↑ +1 ~0 -0 ~]>  git rm test.txt
+
+　　　　rm 'test.txt'
+
+　　　　E:\mygit\web_html [master ↑]>  删除成功
+
+6.怎么当工作区中test.txt存在的情况下，删除暂存区当中的test.txt
+
+
+7.git rm -f <file.name> 在工作区当中存在test.txt文件的时候，删除test.txt文件  该操作也会删除工作区中的test.txt文件
+
+　　　　E:\mygit\web_html [master ↑ +1 ~0 -0 ~]>  git rm -f test.txt
+
+　　　　rm 'test.txt'
+
+　　　　E:\mygit\web_html [master ↑]>
+
+8.git rm --cached <file.name> 删除暂存区当中的test.txt 文件，但是不会删除工作区的test.txt 文件
+
+　　　　E:\mygit\web_html [master ↑]>  git add test.txt
+　　　　E:\mygit\web_html [master ↑ +1 ~0 -0 ~]>  git rm --cached test.txt  
+
+　　　　rm 'test.txt'
+
+　　　　E:\mygit\web_html [master ↑ +1 ~0 -0 !]>
+
+
+
+删除
+　　　　git rm <file.name>  
+　　　　git rm -f <file.name>
+　　　　git rm --cached <file.name>
